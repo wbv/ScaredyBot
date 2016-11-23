@@ -20,27 +20,17 @@ void setup() {
 
 void loop() {
 
-  
+  cry();
   //motor_selftest();
   //sonar_selftest();
 //  motor_speed(LEFT_MOTOR, 100);
 //  motor_speed(RIGHT_MOTOR, 100);
 
-//CC 90
-//if (distance_cm(SFRONT) < 10.0 && distance_cm(SFRONT) != 0){
-//  motor_speed(LEFT_MOTOR, -100);
-//  motor_speed(RIGHT_MOTOR, 100);
-//  delay(250);
-//  motor_speed(LEFT_MOTOR, 0);
-//  motor_speed(RIGHT_MOTOR, 0);  
-//}
-
-
 
 if (distance_cm(SFRONT) < 10.0 && distance_cm(SFRONT) != 0){
    //backwards
    Serial.println("backwards");
-   backwards(500, VELOCITY);
+   backwards(1000, VELOCITY);
    delay(49);
 }   
 else if (distance_cm(SFRONT_L) < 10.0 && distance_cm(SFRONT_L) != 0){
@@ -101,4 +91,14 @@ else {
 
 
 
+}
+void cry(){
+  for(int i = 0; i < 1000; i++){
+    tone(11, i);
+    delay(15);
+  }
+  for(int j = 0; j < 1000; j++){
+    tone(11, 1000-j);
+    delay(15);
+  }
 }
