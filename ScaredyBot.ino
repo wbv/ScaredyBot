@@ -46,7 +46,7 @@ if (distance_cm(SFRONT) < 10.0 && distance_cm(SFRONT) != 0){
 else if (distance_cm(SFRONT_L) < 10.0 && distance_cm(SFRONT_L) != 0){
    //turn 45 CC
    Serial.println("turn 45 CC and go backwards");
-   counter_clocwise(125, VELOCITY);
+   counter_clockwise(125, VELOCITY);
    backwards(500, VELOCITY);
    delay(49);
 }   
@@ -61,13 +61,13 @@ else if (distance_cm(SBACK_L) < 10.0 && distance_cm(SBACK_L) != 0){
    //turn 45 C
    Serial.println("45 C forwards");
    clockwise(125, VELOCITY);
-   forwards(500, VELOCITY);
+   forward(500, VELOCITY);
    delay(49);
 }   
 else if (distance_cm(SBACK) < 10.0 && distance_cm(SBACK) != 0){
    //go forward
    Serial.println("forwards");
-   forwards(500, VELOCITY);  
+   forward(500, VELOCITY);  
    delay(49);
 }  
 else if (distance_cm(SBACK_R) < 10.0 && distance_cm(SBACK_R) != 0){
@@ -81,7 +81,7 @@ else if (distance_cm(SRIGHT) < 10.0 && distance_cm(SRIGHT) != 0){
    //turn 90 CC
    Serial.println("90 CC forwards");
    counter_clockwise(250, VELOCITY);
-   forwards(500, VELOCITY);
+   forward(500, VELOCITY);
    delay(49);
 }  
 else if (distance_cm(SFRONT_R) < 10.0 && distance_cm(SFRONT_R) != 0){
