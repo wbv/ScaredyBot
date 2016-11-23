@@ -121,6 +121,21 @@ void motor_speed(int m_side, int speed) {
 	return;
 }
 
+int counter_clockwise(int DELAY, int SPEED){
+  motor_speed(LEFT_MOTOR, -1*SPEED);
+  motor_speed(RIGHT_MOTOR, SPEED);
+  delay(DELAY);
+  motor_speed(LEFT_MOTOR, 0);
+  motor_speed(RIGHT_MOTOR, 0);   
+}
+int clockwise(int DELAY, int SPEED){
+  motor_speed(LEFT_MOTOR, SPEED);
+  motor_speed(RIGHT_MOTOR, -1*SPEED);
+  delay(DELAY);
+  motor_speed(LEFT_MOTOR, 0);
+  motor_speed(RIGHT_MOTOR, 0);
+}
+
 void motors_setup() {
   /* Set up pins */
   pinMode(LEFT_MOTOR_3A4A, OUTPUT);
