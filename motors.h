@@ -120,18 +120,32 @@ void motor_speed(int m_side, int speed) {
 		analogWrite( RIGHT_MOTOR_1A2A, round(map(speed, 0, 100, 0, 255)));
 	return;
 }
-
-int counter_clockwise(int DELAY, int SPEED){
-  motor_speed(LEFT_MOTOR, -1*SPEED);
-  motor_speed(RIGHT_MOTOR, SPEED);
-  delay(DELAY);
+//
+int counter_clockwise(int duration, int velocity){
+  motor_speed(LEFT_MOTOR, velocity);
+  motor_speed(RIGHT_MOTOR, -1*velocity);
+  delay(duration);
   motor_speed(LEFT_MOTOR, 0);
   motor_speed(RIGHT_MOTOR, 0);   
 }
-int clockwise(int DELAY, int SPEED){
-  motor_speed(LEFT_MOTOR, SPEED);
-  motor_speed(RIGHT_MOTOR, -1*SPEED);
-  delay(DELAY);
+int clockwise(int duration, int velocity){
+  motor_speed(LEFT_MOTOR, -1*velocity);
+  motor_speed(RIGHT_MOTOR, velocity);
+  delay(duration);
+  motor_speed(LEFT_MOTOR, 0);
+  motor_speed(RIGHT_MOTOR, 0);
+}
+int backwards(int duration, int velocity){
+  motor_speed(LEFT_MOTOR, -1*velocity);
+  motor_speed(RIGHT_MOTOR, -1*velocity);
+  delay(duration);
+  motor_speed(LEFT_MOTOR, 0);
+  motor_speed(RIGHT_MOTOR, 0);
+}
+int forward(int duration, int velocity){
+  motor_speed(LEFT_MOTOR, velocity);
+  motor_speed(RIGHT_MOTOR, velocity);
+  delay(duration);
   motor_speed(LEFT_MOTOR, 0);
   motor_speed(RIGHT_MOTOR, 0);
 }
