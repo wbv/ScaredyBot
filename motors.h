@@ -163,10 +163,6 @@ void motors_setup() {
 }
 
 void motor_selftest() {
-  if (!serial_begun) {
-    Serial.begin(9600);
-    serial_begun = true;
-  }
 	int motors[2] = {LEFT_MOTOR, RIGHT_MOTOR};
 
   // for each motor, speed up, slow down,

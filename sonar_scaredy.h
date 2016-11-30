@@ -4,39 +4,33 @@ typedef struct {
   int echo;
 } sonar_pinout_t;
 
-const sonar_pinout_t SFRONT =   {32, 33}, 
-                     SFRONT_L = {30, 31}, 
-                     SLEFT =    {28, 29}, 
-                     SBACK_L =  {26, 27}, 
-                     SBACK =    {24, 25}, 
-                     SBACK_R =  {22, 23}, 
-                     SRIGHT =   {36, 37}, 
-                     SFRONT_R = {34, 35};
-
-const int sonar_sensors_size = 8;
+const size_t sonar_sensors_size = 8;
 const sonar_pinout_t sonar_sensors[sonar_sensors_size] = {
-  SFRONT, SFRONT_L, SLEFT, SBACK_L,
-  SBACK, SBACK_R, SRIGHT, SFRONT_R
+  {32, 33}, {30, 31}, {28, 29}, {26, 27}, 
+  {24, 25}, {22, 23}, {36, 37}, {34, 35}
 };
 
 void sonar_setup() {
-  for (int i = 0; i < sonar_sensors_size; i++) {
+  for (size_t i = 0; i < sonar_sensors_size; i++) {
     pinMode(sonar_sensors[i].trig, OUTPUT);
     pinMode(sonar_sensors[i].echo, INPUT);
   }
 }
 
-float distance_cm(int trigpin, int echopin) {
-  /* DELAY TO ALLOW OTHER SENSORS TIME TO FINISH */
-  delay(10);
-  
+double distance_cm(int trigpin, int echopin) {
+  long unsigned duration;
   digitalWrite(trigpin, LOW);
-  delayMicroseconds(10);
+  delayMicroseconds(5);
   digitalWrite(trigpin, HIGH);
-  delayMicroseconds(20); // Added this line
+  delayMicroseconds(10); 
   digitalWrite(trigpin, LOW);
-  
-  return pulseIn(echopin, HIGH, 9001) / 58.2;
+  delayMicroseconds(100);
+  /* sonar not meant to be called more than once per
+     60ms anyway, so timeout at 60ms */
+  duration = pulseIn(echopin, HIGH, 60000);
+  if (duration > 0)
+    delayMicroseconds(60000 - duration);
+  return duration / 58.24;
 }
 
 float distance_cm(sonar_pinout_t s) {
@@ -46,10 +40,7 @@ float distance_cm(sonar_pinout_t s) {
 
 void sonar_selftest() {
   /* TEST SONAR */
-  if (!serial_begun) {
-    Serial.begin(9600);
-    serial_begun = true;
-  }
+  Serial.begin(9600);
 
   size_t time_to_run = millis();
   size_t n = 0; // for formatting
@@ -62,5 +53,12 @@ void sonar_selftest() {
   Serial.print(millis() - time_to_run);
   Serial.print("\n");
   delay(1000);
+}
+
+double* sonar_sweep() {
+  /* sweep through all the sonar sensors */
+  for (size_t i = 0; i < sonar_sensors_size; i++) {
+    // do things
+  }
 }
 
