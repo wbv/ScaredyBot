@@ -10,6 +10,8 @@ const sonar_pinout_t sonar_sensors[sonar_sensors_size] = {
   {24, 25}, {22, 23}, {36, 37}, {34, 35}
 };
 
+double sonar_distances[sonar_sensors_size];
+
 void sonar_setup() {
   for (size_t i = 0; i < sonar_sensors_size; i++) {
     pinMode(sonar_sensors[i].trig, OUTPUT);
@@ -55,10 +57,10 @@ void sonar_selftest() {
   delay(1000);
 }
 
-double* sonar_sweep() {
+void update_distances() {
   /* sweep through all the sonar sensors */
   for (size_t i = 0; i < sonar_sensors_size; i++) {
-    // do things
+    sonar_distances[i] = distance_cm(sonar_sensors[i]);
   }
 }
 
